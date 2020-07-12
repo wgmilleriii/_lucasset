@@ -9,8 +9,9 @@ body {
 
 h1 {
   color: white;
-  margin: 0px auto;
-  padding: 20px;
+  margin: 25px; 
+  text-align: right;
+  border-bottom:1px solid white;
 }
 
 ul {
@@ -69,3 +70,35 @@ input[type='submit'] {
   margin-top: 60px;
   width: 10%;
 }
+
+/* https://spin.atomicobject.com/2015/07/14/css-responsive-square/ */
+.square {
+  position: relative;
+  width: 7%;
+  border:1px solid red;
+}
+
+.square:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.gridline {clear:both; }
+.square { float:left; }
+
+.lucasSquare { 
+stroke: blue;
+stroke-width: 5px;
+fill: grey;
+fill-opacity: .5;
+
+ }
+
+  .lucasSquareText { font: italic 7px serif; fill: red; }
