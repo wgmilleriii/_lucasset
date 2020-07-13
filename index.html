@@ -10,27 +10,23 @@
     <h1 id="header">_lucasset</h1>
 
   <!-- see https://spin.atomicobject.com/2015/07/14/css-responsive-square/ -->
-  <div class="square">
-    <div class="content">
-      Hello1.
-    </div>
-  </div>
-
- <div id="grid">
-
-
- </div>
+  
 
  <div id="canvas">
-    <svg id="svg1" viewBox="0 0 1800 1800" xmlns="http://www.w3.org/2000/svg">
-
+    <svg id="svg1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+      <!--
+      Example:
       <rect x="500" y="500" width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
+      -->
 
       <!--
       with a large viewBox the circle looks small
       as it is using user units for the r attribute:
       4 resolved against 100 as set in the viewBox
       -->
+
+
+      <!-- this is a great idea ! -->
       <circle cx="50%" cy="50%" r="400" fill="white"/>
 
 
@@ -39,6 +35,9 @@
     </svg>
 
  </div>
+
+ 
+
     <ul>
       <li class="item">Buy movie tickets</li>
     </ul>
@@ -47,6 +46,7 @@
       <input type="text" id="itemField" placeholder="Item" />
       <input type="submit" id="add" value="add" />
     </form>
+
   </div>
   <script src="https://code.jquery.com/jquery-1.12.3.js" integrity="sha256-1XMpEtA4eKXNNpXcJ1pmMPs8JV+nwLdEqwiJeCQEkyc=" crossorigin="anonymous"></script>
   <script src="js/script.js"></script>
