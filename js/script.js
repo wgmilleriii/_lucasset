@@ -3,6 +3,9 @@ $(function() {
 
   var $fifths_0=["C","G","D","A","E","B","F#","C#","G#","D#","A#","F"];
   var $fifths_1=["C","F","Bb","Eb","Ab","Db","F#","B","E","A","D","G","C"];
+
+  $fifths_0=$fifths_0.reverse();
+  $fifths_1=$fifths_1.reverse();
   var $grid=$("#grid");
   var $svg=$("#svg1");
   // sample: https://www.sodawebmedia.com/blog/create-responsive-square-css/
