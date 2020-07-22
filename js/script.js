@@ -101,6 +101,8 @@ $(function() {
       }
 
       var $val=$fifths_0[$y] + "-" + $fifths_1[$x];
+
+      //var $seq=$fifths_
       // x and y points
       var $px=($x/$numNotes) * $vb;
       var $py=($y/$numNotes) * $vb;  
@@ -181,3 +183,12 @@ $(function() {
   });
 
 });
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,7 @@ body {
   font-family: 'Helvetica', 'Arial', sans-serif;
 }
 
+#canvas { width:30%; text-align: center;  margin:0px auto;}
 #list_section {
   text-align: center;
 }
