@@ -101,7 +101,14 @@ $(function() {
       }
 
       var $val=$fifths_0[$y] + "-" + $fifths_1[$x];
-      var $seq= $fifths_0[$y] + "5|0.0000 " + $fifths_1[$y] + "5|0.0000";
+      var $seq= $fifths_0[$y] + "2|0.0000 " + 
+      $fifths_0[$y] + "3|0.0000 " + 
+      $fifths_0[$y] + "4|0.0000 " + 
+      $fifths_0[$y] + "5|0.0000 " + 
+      $fifths_1[$x] + "2|0.0000" + 
+      $fifths_1[$x] + "3|0.0000" + 
+      $fifths_1[$x] + "4|0.0000" + 
+      $fifths_1[$x] + "5|0.0000" ;
 
       //var $seq=$fifths_
       // x and y points
