@@ -1,9 +1,5 @@
-body {
-  background-color: #ebd5b3;
-  font-family: 'Helvetica', 'Arial', sans-serif;
-}
 
-#canvas { width:30%; text-align: center;  margin:0px auto;}
+#canvas { width:90%; text-align: center;  margin:0px auto;}
 #list_section {
   text-align: center;
 }
@@ -130,3 +126,12 @@ input[type='submit'] {
   fill:#338;
   fill-opacity:.2;
   }
+
+#welcome { 
+  font-size:8px;
+  white-space: pre;
+  background:rgba(255,255,255,.8);
+  cursor: pointer;
+}
+#svg1 { 
+display:none; }
