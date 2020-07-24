@@ -264,7 +264,7 @@ $(function() {
             
             if (pause=="") {
                 // console.log("Default to 500");
-                pause=500;
+                pause=1500;
             }
             // console.log(pause);
             if (playingIndex>length) {
