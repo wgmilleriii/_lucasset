@@ -55,6 +55,9 @@ $(function() {
 
     for (var $y=0;$y<$numNotes;$y++) {
       
+      var $coorX=$x;
+      var $coorY=$y;
+
       // $s is the sum of x and y . 
       var $s=$x+$y;
       if ($s>12) $s-=12;
@@ -133,6 +136,8 @@ $(function() {
       txt.innerHTML = $val;
       svg.appendChild(txt);
 
+
+
       var sq = document.createElementNS(svgNS, 'rect'); //Create a path in SVG's namespace
       sq.setAttribute("class","lucasSquare " + $interval); 
       sq.setAttribute("x",$px); 
@@ -140,8 +145,9 @@ $(function() {
       sq.setAttribute("seq",$seq); 
       sq.setAttribute("width",$wid); 
       sq.setAttribute("height",$wid);
+      sq.setAttribute("coorX",$coorX);
+      sq.setAttribute("coorY",$coorY);
       
- 
       svg.appendChild(sq);
 
 
@@ -199,7 +205,7 @@ $(function() {
 
 });
 
-
+function loadEm() {
 
 // below here: audio
         NProgress.start();
@@ -214,8 +220,18 @@ $(function() {
             baseUrl: "/shared/engine4/tonejs-instruments/samples/"
         })
 
-        var current
+
+
+
+        
         // show keyboard on load //
+
+            // show error message on loading error //
+        Tone.Buffer.on('error', function() {
+            document.querySelector("#loading").innerHTML = "I'm sorry, there has been an error loading the samples. This demo works best on on the most up-to-date version of Chrome.";
+        })
+
+
         Tone.Buffer.on('load', function() {
             NProgress.done();
 
@@ -238,6 +254,9 @@ $(function() {
             //     clearTimeout(myVar);   
             // })
         })
+}
+
+        var current="";
         var length=0;
         n="";
         var playingIndex=0;
@@ -275,7 +294,8 @@ $(function() {
 
                 // console.log("GO!");
                 setTimeout(playIt, pause);           
-                
+                // console.log("c");
+                // console.log(current);
                 current.triggerAttack(notename);
                 setTimeout(function releaseIt()  {
                     // returns 1
@@ -290,11 +310,6 @@ $(function() {
 
         }
         
-
-        // show error message on loading error //
-        Tone.Buffer.on('error', function() {
-            document.querySelector("#loading").innerHTML = "I'm sorry, there has been an error loading the samples. This demo works best on on the most up-to-date version of Chrome.";
-        })
 
 
 
@@ -585,16 +600,73 @@ function playGame(fi,mv,cv, reportAProblem) {
 $(document).on('click', '#welcome', function () {
     $(this).fadeOut();
     $("#svg1").fadeIn();
+    loadEm();
+
+
 });
 
-$(document).on('click', '.lucasSquare', function () {
 
+
+$(document).on('click', '.lucasSquare', function () {
     playSeq($(this).attr("seq"));
 });
 
+
+
+$(document).on('click', '.submenu', function () {
+  var p=$(this).parent();
+  p.find(".submenu").removeClass("selected");
+
+  $(this).addClass("selected");
+  mode=$(this).attr("mode");
+
+});
+
+
+$(document).on('click', '.submenu.selected', function () {
+  let v=$(this).attr("mode");
+});
+
+$(document).on('keypress', '', function (event) {
+  console.log(event.keyCode);
+  var t =
+  switch (event.keyCode) {
+    case 105:
+      moveCursor(0,-1);
+    case 107:
+      moveCursor(0,1);
+    case 106:
+      moveCursor(1,0); 
+    case 108:
+      moveCursor(-1,0);
+
+  }
+});
+
+function moveCursor(x,y) {
+
+}
+// u   d   l   r 
+// 105 107 106 108
+// defaults 
+
+var mode="Explore"; 
+var seq="";
 function playSeq(s) {
-  console.log("playSql");
-  console.log(s);
+
+  console.log(mode);
+  switch (mode) {
+    case "Combine":
+      seq+=" " + s;
+      break;
+    case "Explore":
+      seq=s;
+      break;
+  }
+
+
+    console.log("play seq");
+    console.log(seq);
     stopPlaying();
     // var cr=$(this).closest(".cm_render");
     // t=cr.find('.sequence');
@@ -603,7 +675,7 @@ function playSeq(s) {
     // console.log(t.text().trim());
 
     //var seq="Bb5|0.0000 D6|0.0000 F6|0.0000";
-    restartSequence(s);
+    restartSequence(seq);
 
 }
 

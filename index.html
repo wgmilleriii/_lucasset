@@ -17,11 +17,7 @@ body {
 
 </style>
 
-    <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/nprogress.js"></script>
-  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/NexusUI.js"></script>
-  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/Tone.js"></script>
-  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/Tonejs-Instruments.js"></script>
-
+  
   <div id="list_section">
     <h1 id="header">_lucasset</h1>
 
@@ -32,16 +28,31 @@ body {
  <div id="canvas">
 
     <div id="welcome">
-      Welcome.
 
-      Welcome to this area. 
+      The _lucasset welcomes you.
 
-      In this area, there will be instructions.
-
-      Thank you.
-
-      Please click to continue.
+      Click here to continue.
     </div>
+
+
+    <div id="app">
+
+    <div class="menu">
+      <div class="label">Texture:</div>
+      <div class="submenu selected" group="B" mode="1">All the octaves</div>
+      <div class="submenu" group="B" mode="2">Two notes</div>
+    </div>
+
+    <div class="menu">
+      <div class="label">Interaction:</div>
+      <div class="submenu selected" group="A" mode="Explore">Explore (single)</div>
+      <div class="submenu" group="A" mode="Combine">Combine (manual)</div>
+      <div class="submenu" group="A" mode="Reflect">Reflect (auto)</div>
+      <div class="submenu" group="A" mode="Invert">Invert (auto)</div>
+
+    </div>
+
+
     <svg id="svg1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
       <!--
       Example:
@@ -57,11 +68,11 @@ body {
 
       <!-- this is a great idea ! -->
       <circle cx="50%" cy="50%" r="400" fill="white"/>
-
-
-
-
     </svg>
+
+    </div>
+    
+
 
  </div>
 
@@ -88,8 +99,16 @@ body {
 
 -->
   </div>
-  <script src="https://code.jquery.com/jquery-1.12.3.js" integrity="sha256-1XMpEtA4eKXNNpXcJ1pmMPs8JV+nwLdEqwiJeCQEkyc=" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/Tone.js"></script>
+
+  <script src="js/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/Tonejs-Instruments.js"></script>
   
+  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/nprogress.js"></script>
+  <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/NexusUI.js"></script>
+
+
   <script src="js/script.js"></script>
 </body>
 
