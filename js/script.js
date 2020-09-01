@@ -619,7 +619,20 @@ $(document).on('click', '.submenu', function () {
 
   $(this).addClass("selected");
   mode=$(this).attr("mode");
-
+  switch ( mode ) {
+    case 1:
+      _single();
+      break;
+    case 1:
+      _single();
+      break;
+    case 1:
+      _single();
+      break;
+    case 1:
+      _single();
+      break;
+  }
 });
 
 
@@ -627,10 +640,45 @@ $(document).on('click', '.submenu.selected', function () {
   let v=$(this).attr("mode");
 });
 
+function _single() {
+
+}
+function _combine() {
+  
+}
+function _reflect() {
+  
+}
+function _invert() {
+  
+}
 $(document).on('keypress', '', function (event) {
   console.log(event.keyCode);
-  var t =
+//  var t =
   switch (event.keyCode) {
+    case 49: //1
+      // all the octaves
+      break;
+    case 50: //2
+      // all the octaves
+      break;
+    case 113: //q
+      // Single
+      _single();
+      break;
+    case 119: //w
+      // Combine
+      _combine();
+      break;
+    case 101: //e
+      // Reflect
+      _reflect();
+      break;
+    case 114: //r
+      // Invert
+      _invert();
+      break;
+
     case 105:
       moveCursor(0,-1);
     case 107:
