@@ -14,6 +14,12 @@ Please make sure to update tests as appropriate.
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
+## URLS
+Development / git: http://localhost:8888/_lucasset/
+Pre-production: 
+/Applications/MAMP/htdocs20/chipmiller.me/public_html/shared/engine4/tonejs-instruments/
+http://chipmiller.me/git/_lucasset/
+
 
 
 
