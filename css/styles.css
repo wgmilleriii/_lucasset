@@ -123,6 +123,10 @@ input[type='submit'] {
 .lucasSquare { 
   fill-opacity:.5;
  }
+.lucasSquare.combined { 
+  stroke:white;
+  stroke-width:6px;
+ }
  
  .lucasCircle { 
   fill:#338;

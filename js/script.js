@@ -1,3 +1,17 @@
+
+function getTexture() {
+  return $("#tTexture").html();
+}
+function getMode() {
+  return $("#tMode").html();
+}
+
+function setTexture(s) {
+  $("#tTexture").html(s);
+}
+function setMode(s) {
+  $("#tMode").html(s);
+}
 $(function() {
 
   var svgNS="http://www.w3.org/2000/svg";
@@ -112,7 +126,8 @@ $(function() {
       $fifths_1[$x] + "3|0.0000" + 
       $fifths_1[$x] + "4|0.0000" + 
       $fifths_1[$x] + "5|0.0000" ;
-
+      var $seq2= $fifths_0[$y] + "3|0.0000 " + 
+      $fifths_1[$x] + "4|0.0000";
       //var $seq=$fifths_
       // x and y points
       var $px=($x/$numNotes) * $vb;
@@ -140,13 +155,15 @@ $(function() {
 
       var sq = document.createElementNS(svgNS, 'rect'); //Create a path in SVG's namespace
       sq.setAttribute("class","lucasSquare " + $interval); 
+      sq.setAttribute("coor_x",$coorX);
+      sq.setAttribute("coor_y",$coorY);
+
       sq.setAttribute("x",$px); 
       sq.setAttribute("y",$py); 
       sq.setAttribute("seq",$seq); 
+      sq.setAttribute("seq2",$seq2);       
       sq.setAttribute("width",$wid); 
       sq.setAttribute("height",$wid);
-      sq.setAttribute("coorX",$coorX);
-      sq.setAttribute("coorY",$coorY);
       
       svg.appendChild(sq);
 
@@ -169,7 +186,11 @@ $(function() {
     // add it to the grid
     $grid.append($s);
 
+    
   }
+
+  setTexture("1");
+  setMode("Explore");
 
 
   // remove the below when done.
@@ -392,17 +413,6 @@ function loadEm() {
 
 
 
-// from game.js:
-var clockCountdown=8;
-
-
-$( document ).ready(function() {
-
-
-
-});
-
-
 
 
 urlBase="http://localhost:801/chipmiller.me/public_html/test.intypiano.org/";
@@ -608,31 +618,41 @@ $(document).on('click', '#welcome', function () {
 
 
 $(document).on('click', '.lucasSquare', function () {
-    playSeq($(this).attr("seq"));
+    playSeq($(this));
 });
 
 
 
 $(document).on('click', '.submenu', function () {
+
   var p=$(this).parent();
   p.find(".submenu").removeClass("selected");
 
   $(this).addClass("selected");
-  mode=$(this).attr("mode");
+  var mode=$(this).attr("mode");
+  console.log("mode" , mode);
   switch ( mode ) {
-    case 1:
-      _single();
+    case "1":
+      allOctaves();
       break;
-    case 1:
-      _single();
+    case "2":
+      twoNotes();
       break;
-    case 1:
-      _single();
+    case "Explore":
+      explore();
       break;
-    case 1:
-      _single();
+    case "Combine":
+      combine();
       break;
-  }
+    case "Reflect":
+      reflect();
+      break;
+    case "Invert":
+      invert();
+      break;  
+    }
+
+    console.log("Texture is now " , getTexture());
 });
 
 
@@ -640,17 +660,34 @@ $(document).on('click', '.submenu.selected', function () {
   let v=$(this).attr("mode");
 });
 
-function _single() {
+function allOctaves() {
+  setTexture("1");
+}
 
-}
-function _combine() {
+function twoNotes() {
+  setTexture("2");
+  console.log("setting texture to 2");
   
 }
-function _reflect() {
-  
+function clearCombined() {
+  if ($(".combined").length>0)
+  $(".combined").attr("class", $(".combined").attr("class").replace(" combined",""));
 }
-function _invert() {
-  
+function explore() {
+  setMode("Explore");
+  clearCombined();
+}
+
+function combine() {
+  setMode("Combine");
+}
+function reflect() {
+  setMode("Reflect");
+  clearCombined();
+}
+function invert() {
+  setMode("Invert");
+  clearCombined();
 }
 $(document).on('keypress', '', function (event) {
   console.log(event.keyCode);
@@ -664,7 +701,7 @@ $(document).on('keypress', '', function (event) {
       break;
     case 113: //q
       // Single
-      _single();
+      _all();
       break;
     case 119: //w
       // Combine
@@ -690,7 +727,15 @@ $(document).on('keypress', '', function (event) {
 
   }
 });
+function addSVGClass(o,cl1) {
+      var cl = o.attr('class');
+      if( cl.indexOf(cl1)!==-1 ){
+      } else {
+        cl+=" " + cl1;
+        o.attr("class",cl);
+      }
 
+}
 function moveCursor(x,y) {
 
 }
@@ -698,18 +743,79 @@ function moveCursor(x,y) {
 // 105 107 106 108
 // defaults 
 
-var mode="Explore"; 
-var seq="";
-function playSeq(s) {
 
+var seq="";
+function playSeq(o) {
+
+  var s;
+  var texture=getTexture();
+  var mode=getMode();
+
+  var x=o.attr("coor_x");
+  var y=o.attr("coor_y");
+  console.log("COOrs ",x);
+
+  switch(texture) {
+    case "1":
+      s=o.attr("seq");
+      break;
+    case "2":
+      s=o.attr("seq2");
+      break;    
+  }
   console.log(mode);
+  console.log("S ",s);
+
   switch (mode) {
     case "Combine":
+      addSVGClass(o,"combined");
       seq+=" " + s;
       break;
     case "Explore":
       seq=s;
       break;
+    case "Reflect":
+      var x2=11-x;
+      var y2=11-y;
+      var ref=$(".lucasSquare[coor_x='" + x2 + "'][coor_y='" + y2 + "']");
+      addSVGClass(ref,"combined");
+      setTimeout(clearCombined, 500);
+      console.log(ref);
+      switch(texture) {
+        case "1":
+          s+=" " + ref.attr("seq");
+          break;
+        case "2":
+          s+=" " +ref.attr("seq2");
+          break;    
+      }
+      seq=s;
+    case "Invert":
+      var x2=11-x;
+      var y2=11-y;
+      var ref=$(".lucasSquare[coor_x='" + x + "'][coor_y='" + y2 + "']");
+      addSVGClass(ref,"combined");
+      switch(texture) {
+        case "1":
+          s+=" " + ref.attr("seq");
+          break;
+        case "2":
+          s+=" " +ref.attr("seq2");
+          break;    
+      }
+      var ref=$(".lucasSquare[coor_x='" + x2 + "'][coor_y='" + y + "']");
+      addSVGClass(ref,"combined");
+      switch(texture) {
+        case "1":
+          s+=" " + ref.attr("seq");
+          break;
+        case "2":
+          s+=" " +ref.attr("seq2");
+          break;    
+      }
+
+      setTimeout(clearCombined, 500);
+      seq=s;
   }
 
 
