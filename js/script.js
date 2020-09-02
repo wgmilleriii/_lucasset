@@ -676,8 +676,12 @@ function twoNotes() {
   
 }
 function clearCombined() {
-  if ($(".combined").length>0)
-  $(".combined").attr("class", $(".combined").attr("class").replace(" combined",""));
+  if ($(".combined").length>0) {
+    $( ".combined" ).each(function( index ) {
+      $(this).attr("class",$(this).attr("class").replace(" combined",""));
+    });
+  }
+  
 }
 function explore() {
   setMode("Explore");
