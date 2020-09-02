@@ -1,8 +1,12 @@
+<?php
+
+$r=rand(1,1000000);
+?>
 <html>
 
 <head>
   <title>_lucasset</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?r=<? echo $r ?>" />
 </head>
 
 <body>
@@ -112,7 +116,7 @@ body {
   <script type="text/javascript" src="/shared/engine4/tonejs-instruments/external-js/NexusUI.js"></script>
 
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?r=<? echo $r ?>"></script>
 </body>
 
 </html>
