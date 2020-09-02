@@ -800,6 +800,7 @@ function playSeq(o) {
           break;    
       }
       seq=s;
+      break;
     case "Invert":
       var x2=11-x;
       var y2=11-y;
@@ -826,6 +827,7 @@ function playSeq(o) {
 
       setTimeout(clearCombined, 500);
       seq=s;
+      break;
   }
 
 
