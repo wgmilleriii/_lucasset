@@ -607,10 +607,16 @@ function playGame(fi,mv,cv, reportAProblem) {
     
 
 }
-$(document).on('click', '#welcome', function () {
-    $(this).fadeOut();
+function fadeErIn() {
     $("#svg1").fadeIn();
+    $(".menu").css("display","inline-block");
+}
+$(document).on('click', '#welcome', function () {
+    
+
     loadEm();
+    $(this).fadeOut(500, fadeErIn);
+    
 
 
 });
