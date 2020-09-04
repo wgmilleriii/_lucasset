@@ -225,18 +225,18 @@ $(function() {
   });
 
 });
-
+var samples;
 function loadEm() {
 
 // below here: audio
         NProgress.start();
         // load samples / choose 4 random instruments from the list //
         chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'contrabass', 'flute', 'french-horn', 'guitar-acoustic', 'guitar-electric','guitar-nylon', 'harmonium', 'harp', 'organ', 'saxophone', 'trombone', 'trumpet', 'tuba', 'violin', 'xylophone']
-        chooseFour = ['piano']        
-        shuffle(chooseFour);
-        chooseFour = chooseFour.slice(0, 1);
+        chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone'] 
+        // shuffle(chooseFour);
+        // chooseFour = chooseFour.slice(0, 1);
 
-        var samples = SampleLibrary.load({
+        samples = SampleLibrary.load({
             instruments: chooseFour,
             baseUrl: "/shared/engine4/tonejs-instruments/samples/"
         })
@@ -267,7 +267,6 @@ function loadEm() {
                     samples[property].toMaster();
                 }
             }
-
             current = samples[chooseFour[0]];
 
             // button.on('change', function(v) {
@@ -637,26 +636,41 @@ $(document).on('click', '.submenu', function () {
   $(this).addClass("selected");
   var mode=$(this).attr("mode");
   console.log("mode" , mode);
-  switch ( mode ) {
-    case "1":
-      allOctaves();
+
+  var group=$(this).attr("group");
+  switch (group) {
+    case "Ins": 
+      //chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone'] 
+
+      current = samples[chooseFour[mode]];
       break;
-    case "2":
-      twoNotes();
+    case "A":
+    case "B":
+      switch ( mode ) {
+        case "1":
+          allOctaves();
+          break;
+        case "2":
+          twoNotes();
+          break;
+        case "Explore":
+          explore();
+          break;
+        case "Combine":
+          combine();
+          break;
+        case "Reflect":
+          reflect();
+          break;
+        case "Invert":
+          invert();
+          break;  
+        }
       break;
-    case "Explore":
-      explore();
-      break;
-    case "Combine":
-      combine();
-      break;
-    case "Reflect":
-      reflect();
-      break;
-    case "Invert":
-      invert();
-      break;  
-    }
+
+  }
+
+  
 
     console.log("Texture is now " , getTexture());
 });

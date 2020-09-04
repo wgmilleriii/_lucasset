@@ -59,7 +59,21 @@ body {
 
     </div>
 
-    <div style="clear:both; margin-top:10px"></div>
+    <div style="clear:both; margin-top:5px"></div>
+<!-- ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone']  -->
+    <div class="menu">
+      <div class="label">Instrument:</div>
+      <div class="submenu selected" group="Ins" mode="0">Piano</div>
+      <div class="submenu" group="Ins" mode="1">Electric Bass</div>
+      <div class="submenu" group="Ins" mode="3">Cello</div>
+      <div class="submenu" group="Ins" mode="4">Clarinet</div>
+      <div class="submenu" group="Ins" mode="5">Xylophone</div>
+      <div class="submenu" group="Ins" mode="2">Bassoon</div>
+
+    </div>
+        <div style="clear:both; margin-top:5px"></div>
+
+
     <svg id="svg1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
       <!--
       Example:
