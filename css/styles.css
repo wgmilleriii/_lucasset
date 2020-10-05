@@ -61,6 +61,15 @@ input[type='submit'] {
   border: none;
   padding: 5px;
 }
+.seqNote { 
+  cursor: pointer;
+  padding:4px;
+  border-radius:10px;
+  margin:4px;
+  display: inline-block;
+  border:1px solid black;
+  background-color: white;
+}
 
 #newItemButton {
   display: none;
@@ -140,16 +149,22 @@ input[type='submit'] {
   background:rgba(255,255,255,.8);
   cursor: pointer;
 }
+#app { 
+display:none; 
+ }
 #svg1 { 
 display:none; 
 width:70vh;
 height:70vh;
 }
+#divSeq {
+  visibility:hidden;
+}
 
-.submenu.selected { 
+.submenu.selected, .submenu2.selected { 
   background-color:rgba(255,255,255,1);
 }
-.submenu { 
+.submenu, .submenu2 { 
   background-color:rgba(255,255,255,.2);
   border:1px solid black;
   border-radius:3px;
@@ -165,3 +180,55 @@ display:none; margin-right:20px ; text-align: left;
  .label { 
 clear:both; font-size:11px; 
   }
+.white { 
+  stroke:white;
+  stroke-width:2;
+  stroke-opacity:1;
+}
+.whiteshadow { 
+  stroke:black;
+  stroke-width:2;
+  stroke-opacity:.5;
+}
+.white2 { 
+  stroke:white;
+  stroke-width:10;
+  stroke-opacity:1;
+}
+
+
+
+
+.whiteCircle { 
+  stroke:white;
+  stroke-width:2;
+  stroke-opacity:1;
+  fill:white;
+  fill-opacity:.2;
+}
+
+.darkblue { 
+  stroke:darkblue;
+  stroke-width:3;
+  stroke-opacity:.7;
+  fill:blue;
+  fill-opacity:.7;
+}
+.darkblueshadow { 
+  stroke:lightgrey;
+  stroke-width:4;
+  stroke-opacity:.5;
+}
+.darkblue2 { 
+  stroke:white;
+  stroke-width:10;
+  stroke-opacity:1;
+}
+
+
+.blackCircle { 
+  fill:black;
+  fill-opacity:1;
+}
+#seqCheck { zoom:.7; }
+#dSeq { zoom:.8; min-height:20px; }

@@ -38,16 +38,28 @@ body {
       Click here to continue.
     </div>
 
-    <div id="tTexture"></div>
-    <div id="tMode"></div>
+    
+    
+
 
     <div id="app">
 
 
+<div id="divSeq">
+
+<div id="dSeq"></div>
+<div id="seqCheck"><input type="checkbox" id="chSeq"/> <label for="chSeq">Unique Values</label></div>
+
+</div>
+
+    <div id="tTexture"></div>
+    <div id="tMode"></div>
+
     <div class="menu">
       <div class="label">Texture:</div>
-      <div class="submenu selected" group="B" mode="1">All the octaves</div>
-      <div class="submenu" group="B" mode="2">Two notes</div>
+      <div class="submenu selected" group="B" mode="2">Two notes</div>
+
+      <div class="submenu " group="B" mode="1">All the octaves</div>
     </div>
 
     <div class="menu">
@@ -60,7 +72,17 @@ body {
     </div>
 
     <div style="clear:both; margin-top:5px"></div>
+    <div class="menu">
+      <div class="label">Time:</div>
+      <div class="submenu selected" group="Time" mode="C">Chord</div>
+      <div class="submenu" group="Time" mode="S">Sequence</div>
+    </div>
+
+    <div class="menu">
+      <div class="submenu2" group="Lock" mode="L">Lock</div>
+    </div>
 <!-- ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone']  -->
+
     <div class="menu">
       <div class="label">Instrument:</div>
       <div class="submenu selected" group="Ins" mode="0">Piano</div>
@@ -75,6 +97,7 @@ body {
 
 
     <svg id="svg1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+      <defs id="sdefs"></defs>
       <!--
       Example:
       <rect x="500" y="500" width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />

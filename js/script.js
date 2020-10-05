@@ -1,3 +1,61 @@
+var arSeq=[];
+var svgNS;
+var svg;
+var svgHeight=500;
+var defs=$("#sdefs");
+var arSel=[];
+var arSquares=[];
+
+$( document ).ready(function() {
+    svgNS="http://www.w3.org/2000/svg";
+    svg=document.getElementById("svg1");
+});
+
+function coorsa(ar) {
+  var s="";
+  for (var i=0;i<ar.length;i++) {
+    s+=coors(ar[i]) + " - ";
+  }
+  return s;
+}
+
+function coors(o) {
+  var s="";
+  if (o!="") {
+    s=o.attr("coor_x") + "," + o.attr("coor_y");
+  }  else {
+    s="[ nada ]";
+  }
+  return s;
+}
+
+function updateSeq() {
+  var a=arSeq;
+  console.log("updateSeq!");
+  console.log(a);
+  var c=$('#chSeq').is(":checked");
+  if (c) {
+    a=arSeq.unique();
+  }
+  $("#dSeq").html(a.toString());
+  var s;
+  var arNotes=[];
+  for (var i=0;i<a.length;i++) {
+    var n=a[i];
+    arNotes.push(n);
+    s+=`<div class=seqNote>` + n + `</div>`;
+  }
+  $("dSeq").html(s);
+  // $(".seqNote").draggable();
+  makeSequence(arNotes);
+
+}
+
+
+$(document).on('click',"#chSeq",function() {
+  updateSeq();
+  playSeq(null);
+});
 
 function getTexture() {
   return $("#tTexture").html();
@@ -14,8 +72,8 @@ function setMode(s) {
 }
 $(function() {
 
-  var svgNS="http://www.w3.org/2000/svg";
-  var svg=document.getElementById("svg1");
+  svgNS="http://www.w3.org/2000/svg";
+  svg=document.getElementById("svg1");
 
   // viewBox width and height
   var $vb=1000; 
@@ -31,7 +89,6 @@ $(function() {
       var $cx=$vb/4*3;
       var $cy=$vb/4*3;
 
-
       // the radius of the circle is a ratio to the viewBox
       var $radius=$vb-($i*60);
       cir.setAttribute("x",$cx); 
@@ -46,8 +103,11 @@ $(function() {
 
 
   // optional : switch the order
+  $fifths_1=$fifths_0.reverse();
   $fifths_0=$fifths_0.reverse();
-  $fifths_1=$fifths_1.reverse();
+
+  // lower left going right: C-C, C-G, C-D
+  // lower left going up.  :
 
   var $grid=$("#grid");
   var $svg=$("#svg1");
@@ -117,17 +177,22 @@ $(function() {
 
       }
 
-      var $val=$fifths_0[$y] + "-" + $fifths_1[$x];
-      var $seq= $fifths_0[$y] + "2|0.0000 " + 
-      $fifths_0[$y] + "3|0.0000 " + 
-      $fifths_0[$y] + "4|0.0000 " + 
-      $fifths_0[$y] + "5|0.0000 " + 
-      $fifths_1[$x] + "2|0.0000" + 
-      $fifths_1[$x] + "3|0.0000" + 
-      $fifths_1[$x] + "4|0.0000" + 
-      $fifths_1[$x] + "5|0.0000" ;
-      var $seq2= $fifths_0[$y] + "3|0.0000 " + 
-      $fifths_1[$x] + "4|0.0000";
+      var n1=$fifths_0[$x];
+      var n2=$fifths_0[$y];
+
+      var $val=n2 + "-" + n1;
+      var $seq= n2 + "2|0.0000 " + 
+      n2 + "3|0.0000 " + 
+      n2 + "4|0.0000 " + 
+      n2 + "5|0.0000 " + 
+      n1 + "2|0.0000 " + 
+      n1 + "3|0.0000 " + 
+      n1 + "4|0.0000 " + 
+      n1 + "5|0.0000 " ;
+      
+      var $seq2= n2 + "3|0.0000 " + 
+      n1 + "4|0.0000 ";
+
       //var $seq=$fifths_
       // x and y points
       var $px=($x/$numNotes) * $vb;
@@ -157,6 +222,9 @@ $(function() {
       sq.setAttribute("class","lucasSquare " + $interval); 
       sq.setAttribute("coor_x",$coorX);
       sq.setAttribute("coor_y",$coorY);
+      sq.setAttribute("n1",n1);
+      sq.setAttribute("n2",n2);
+
 
       sq.setAttribute("x",$px); 
       sq.setAttribute("y",$py); 
@@ -166,10 +234,7 @@ $(function() {
       sq.setAttribute("height",$wid);
       
       svg.appendChild(sq);
-
-
-
- 
+      arSquares.push(sq);
 
       // create an HTML div
       $s+=`<div class="square ` + $interval + `">
@@ -189,7 +254,7 @@ $(function() {
     
   }
 
-  setTexture("1");
+  setTexture("2");
   setMode("Explore");
 
 
@@ -283,8 +348,7 @@ function loadEm() {
         function playIt() {
                     
             // console.log("==playit==");
-            var n=sequence.next();
-            n=n.replace("n","");
+            var n=sequence.next().replace("n","");
             playingIndex++;
             
             var notename=n.split("|")[0];
@@ -295,16 +359,23 @@ function loadEm() {
             // console.log("has been changed to ");
             // console.log(notename);
 
+            var pause=0;
+            if (!groupSelected("Time","C")) {
+            
+              pause=n.split("|")[1];
+                          // console.log(n); 
+              // console.log(playingIndex + " of " + length);
+              if (parseFloat(pause)*1==0) {
+                  // console.log("Default to 500");
+                  pause=0;
+              } else {
+                  pause=300;
+              }
 
-            var pause=(n.split("|")[1]-1)*125;
-            // console.log(n); 
-            // console.log(playingIndex + " of " + length);
-            
-            
-            if (pause=="") {
-                // console.log("Default to 500");
-                pause=1500;
             }
+
+
+
             // console.log(pause);
             if (playingIndex>length) {
                 pause=2500;
@@ -344,9 +415,9 @@ function loadEm() {
         // })        
 
 
-        var sequence = new Nexus.Sequence(["F2","A2","C3","D3","E3","E2","F#4"])    ;
+        var sequence;// = new Nexus.Sequence(["F2","A2","C3","D3","E3","E2","F#4"])    ;
         
-        var myVar=setTimeout(nothing,10);
+        var myVar=setTimeout(nothing,2);
         function nothing() {
             console.log("nothing");
         }
@@ -358,14 +429,18 @@ function loadEm() {
             clearInterval(myVar);
             myVar=null;
         }
-        function restartSequence(t) {
-            
+        function restartSequence(t="") {
+            if (t=="") t=lastSeq;
+            if (t=="") return;
+            lastSeq=t;
             stopPlaying() ;
             var a=t.trim().split(" ");
             length=a.length;
             console.log("Restarting sequence with length ");
             console.log(length);
             console.log(a);
+
+
             // sequence = new Nexus.Sequence(["F2","A2","C3","D3","E3","E2","F#4"])    ;
             sequence = new Nexus.Sequence(a) ;
             // sequence = new Nexus.Sequence(a);
@@ -607,29 +682,39 @@ function playGame(fi,mv,cv, reportAProblem) {
 
 }
 function fadeErIn() {
+    $("#app").fadeIn();
     $("#svg1").fadeIn();
     $(".menu").css("display","inline-block");
 }
 $(document).on('click', '#welcome', function () {
-    
-
     loadEm();
     $(this).fadeOut(500, fadeErIn);
-    
-
-
 });
 
 
 
 $(document).on('click', '.lucasSquare', function () {
+    
     playSeq($(this));
 });
 
-
+var seqMode="C";
+function hideDivSeq() {
+  $("#divSeq").css("visibility","visible");  
+}
+function showDivSeq() {
+  $("#divSeq").css("visibility","hidden");  
+}
+$(document).on('click', '.submenu2', function () {
+  $(this).toggleClass("selected");
+});
 
 $(document).on('click', '.submenu', function () {
 
+  arSel=[];
+  arSel2=[];
+  clearCombined();
+  clearSeq();
   var p=$(this).parent();
   p.find(".submenu").removeClass("selected");
 
@@ -638,7 +723,23 @@ $(document).on('click', '.submenu', function () {
   console.log("mode" , mode);
 
   var group=$(this).attr("group");
+
   switch (group) {
+      case "Time":
+        clearSeq();
+        console.log("seqMode changed " , seqMode);
+        switch (mode) {
+        case "C": //chord
+          showDivSeq();
+          seqMode = mode;
+          break;
+        case "S": // sequence
+          seqMode = mode;
+          hideDivSeq();
+          break;
+        }
+        playSeq(null);
+        break;
     case "Ins": 
       //chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone'] 
 
@@ -687,8 +788,20 @@ function allOctaves() {
 function twoNotes() {
   setTexture("2");
   console.log("setting texture to 2");
-  
 }
+
+function cleardarkblue() {
+  $(".darkblue").remove();
+  $(".darkblue2").remove();
+  $(".darkblueshadow").remove();
+}
+function clearwhite() {
+  $(".white").remove();
+  $(".white2").remove();
+  $(".whiteshadow").remove();
+  $(".whiteCircle").remove();
+}
+
 function clearCombined() {
   if ($(".combined").length>0) {
     $( ".combined" ).each(function( index ) {
@@ -697,24 +810,39 @@ function clearCombined() {
   }
   
 }
+function clearSeq() {
+  sq0="";
+  sq1="";
+  seq="";
+  seq2="";
+  lastSeq=[];
+  arSeq=[];    
+  $(".lines").remove();
+  updateSeq();
+}
 function explore() {
+  clearSeq();
   setMode("Explore");
   clearCombined();
 }
 
 function combine() {
+  clearSeq();
   setMode("Combine");
 }
 function reflect() {
+  clearSeq();
   setMode("Reflect");
   clearCombined();
 }
 function invert() {
+  clearSeq();
   setMode("Invert");
   clearCombined();
 }
 $(document).on('keypress', '', function (event) {
   console.log(event.keyCode);
+  
 //  var t =
   switch (event.keyCode) {
     case 49: //1
@@ -740,16 +868,25 @@ $(document).on('keypress', '', function (event) {
       _invert();
       break;
 
+    case 32:
+      moveCursor(0,0);
+      break;
+
     case 105:
       moveCursor(0,-1);
+      break;
     case 107:
       moveCursor(0,1);
+      break;
     case 106:
-      moveCursor(1,0); 
+      moveCursor(-1,0); 
+      break;
     case 108:
-      moveCursor(-1,0);
+      moveCursor(1,0);
+      break;
 
   }
+  
 });
 function addSVGClass(o,cl1) {
       var cl = o.attr('class');
@@ -761,6 +898,45 @@ function addSVGClass(o,cl1) {
 
 }
 function moveCursor(x,y) {
+  console.log(coorsa(arSel));
+  var arSel2=[];
+  var mode=getMode();
+  for (var i=0;i<arSel.length;i++) {
+    var o1=arSel[i];
+    var x1=arSel[i].attr("coor_x")*1+x;
+    var y1=arSel[i].attr("coor_y")*1+y;
+    if (x1<0) x1+=12;
+    if (y1<0) y1+=12;
+    if (x1>11) x1-=12;
+    if (y1>11) y1-=12;
+
+
+
+    // console.log(arSquares);
+    // var result = arSquares.find(obj => {
+    //   var r1=obj.attr("coor_x") === x1;
+    //   var r2=obj.attr("coor_y") === y1;
+
+    //   return r1 && r2;
+    // });
+    var result=$(".lucasSquare[coor_x=" + x1 + "][coor_y=" + y1 + "]");
+
+    addSVGClass(result,"combined");
+    arSel2.push(result);
+    if (i>0) {
+      lineTo(arSel2[i-1],arSel2[i],"darkblue");
+    }
+  }
+  if (mode=="Invert" && seqMode!="S") {
+    lineTo(arSel2[i-1],arSel2[0],"darkblue");
+  }
+setTimeout(cleardarkblue, 500);
+  console.log("Next");
+  console.log(coorsa(arSel2));
+  playSeq2(arSel2);
+  setTimeout(clearCombined, 500);
+  
+  arSel=arSel2;
 
 }
 // u   d   l   r 
@@ -769,36 +945,214 @@ function moveCursor(x,y) {
 
 
 var seq="";
+var seq2="";
+
+function makeSequence(ar) {
+  console.log("makeSequence");
+  
+  var s="";
+  for (var i=0;i<ar.length;i++) {
+    var o=i*1;
+    s+=ar[i] + "3|0.0000 " +
+      ar[i] + "4|1.0000 ";
+  }
+  seq2=s;
+  console.log(seq2);
+}
+function groupSelected(gr,mo) {
+  return $( "div.submenu.selected[group='" + gr + "']").attr("mode")==mo;
+}
+function group2Selected(gr,mo) {
+  return $( "div.submenu2.selected[group='" + gr + "']").attr("mode")==mo;
+}
+
+function circle(cx, cy, radius, addToDefs,css) {
+    
+    var cir = document.createElementNS(svgNS, 'circle'); //Create a path in SVG's namespace
+    cir.setAttribute("class", css + " lines"); 
+    cir.setAttribute("cx",cx); 
+    cir.setAttribute("cy",cy); 
+    cir.setAttribute("r",radius); 
+
+    if (addToDefs!=0) {
+      $("#" + addToDefs).append(cir);
+    } else {
+      svg.appendChild(cir);      
+    }
+    
+
+
+}
+
+const generateRandomString = function(){
+return "N" + Math.random().toString(20).substr(2, 8)
+}
+
+function lineTo(o1,o2,css="") {
+  console.log("--------- ");
+  console.log(o1);
+  console.log(o2);
+  console.log("=========");
+  
+  if (o2!="") {
+    var x1=o1.attr("x")*1+o1.attr("width")/2;
+    var y1=o1.attr("y")*1+o1.attr("height")/2;
+    var x2=o2.attr("x")*1+o1.attr("width")/2;
+    var y2=o2.attr("y")*1+o1.attr("height")/2;
+    
+    var id=generateRandomString();
+    var m=document.createElementNS(svgNS, 'mask');
+    m.setAttribute("id",id); 
+    m.setAttribute("maskUnits","userSpaceOnUse");
+    svg.append(m);
+
+    
+    var l=line(x1,y1,x2,y2,id,css);
+    circle(x1,y1,10,id,"blackCircle");
+    circle(x2,y2,10,id,"blackCircle");
+    
+    if (css=="") css="whiteCircle";
+    circle(x1,y1,10,0,css);
+    circle(x2,y2,10,0,css);
+  }
+}
+
+function createLine(x1,y1,x2,y2) {
+    var line = document.createElementNS(svgNS, 'line'); //Create a line in SVG's namespace
+    line.setAttribute("x1",x1); 
+    line.setAttribute("y1",y1); 
+    line.setAttribute("x2",x2); 
+    line.setAttribute("y2",y2); 
+    return line;  
+}
+function line(x1,y1,x2,y2, clipid, css="white") {
+    // console.log("Mask " + clipid);
+    var opacity=1;
+    if (css=="") css="white";
+
+    var line3 = createLine(x1+3,y1+3,x2+3,y2+3);
+    line3.setAttribute("class",css + "shadow lines"); 
+    line3.setAttribute("mask","url(#" + clipid + ")"); 
+    svg.appendChild(line3);
+
+    var line = createLine(x1,y1,x2,y2);
+    line.setAttribute("class",css + " lines"); 
+    line.setAttribute("style","opacity:" + opacity); 
+    line.setAttribute("mask","url(#" + clipid + ")"); 
+    svg.appendChild(line);
+
+
+    var line2 = createLine(x1,y1,x2,y2);
+    line2.setAttribute("class",css + "2 lines"); 
+    line2.setAttribute("style","opacity:1"); 
+    $("#" + clipid).append(line2);      
+
+}
+
+var sq0="";
+var sq1="";
+var lastSeq="";
+function playSeq2(arSel2) {
+  console.log("&&& PLAYSE2");
+  seq="";
+  arSeq=[];
+  var texture=getTexture();  
+  var s;
+  for (var i=0;i<arSel2.length;i++) {
+    var o=arSel2[i];
+    var n1=o.attr("n1");
+    var n2=o.attr("n2");
+
+    switch(texture) {
+      case "1":
+        s=o.attr("seq");
+        break;
+      case "2":
+        s=o.attr("seq2");
+        break;    
+    }
+    seq=seq.replace(s,"") + " " + s;
+
+    arSeq.push(n2);
+    arSeq.push(n1);
+
+  }
+
+ 
+  updateSeq();
+
+  console.log("play seq2");
+  console.log(seq2);  
+
+  stopPlaying();
+  restartSequence(seq2);
+
+}
 function playSeq(o) {
 
+  if (group2Selected("Lock","L")) { 
+    if (arSel.length<2) return;
+      var x1=arSel[0].attr("coor_x")*1;
+      var y1=arSel[0].attr("coor_y")*1;
+      var x2=o.attr("coor_x")*1;
+      var y2=o.attr("coor_y")*1;
+      moveCursor(x2-x1,y2-y1);
+    console.log("Lock");
+    return;
+  } 
   var s;
   var texture=getTexture();
   var mode=getMode();
 
-  var x=o.attr("coor_x");
-  var y=o.attr("coor_y");
-  console.log("COOrs ",x);
+  var myseq;
 
-  switch(texture) {
-    case "1":
-      s=o.attr("seq");
-      break;
-    case "2":
-      s=o.attr("seq2");
-      break;    
-  }
+  if (o === null) {
+  } else {
+
+    sq1=sq0;
+    sq0=o;
+    var x=o.attr("coor_x");
+    var y=o.attr("coor_y");
+    var n1=o.attr("n1");
+    var n2=o.attr("n2");
+    var n3="";
+    var n4="";
+    var n5="";
+    var n6="";
+
+    console.log("COOrs ",x);
+
+    switch(texture) {
+      case "1":
+        s=o.attr("seq");
+        break;
+      case "2":
+        s=o.attr("seq2");
+        break;    
+    }
+  
   console.log(mode);
   console.log("S ",s);
+  
 
   switch (mode) {
     case "Combine":
+      arSel.push(o);
       addSVGClass(o,"combined");
-      seq+=" " + s;
+      seq=seq.replace(s,"") + " " + s;
+      lineTo(sq0,sq1);
       break;
     case "Explore":
+      arSeq=[];
+      arSel=[];    
+      updateSeq();
       seq=s;
+      arSel.push(o);
       break;
     case "Reflect":
+      arSel=[];
+      console.log("*** Reflect");
+      console.log("seqMode ",seqMode);
       var x2=11-x;
       var y2=11-y;
       var ref=$(".lucasSquare[coor_x='" + x2 + "'][coor_y='" + y2 + "']");
@@ -813,9 +1167,32 @@ function playSeq(o) {
           s+=" " +ref.attr("seq2");
           break;    
       }
+       n3=ref.attr("n1");
+       n4=ref.attr("n2");
+       arSel.push(o);
+       arSel.push(ref);
+
       seq=s;
+      if (seqMode=="S") {
+        console.log("(((((");
+        console.log(coors(o));
+        console.log(coors(sq1));
+
+        sq0=o;
+        if (sq1!="") {
+          lineTo(sq0,sq1);
+        }
+        
+        sq1=ref;
+        lineTo(sq0,sq1);
+        sq0=ref;
+      } else {
+        lineTo(o,ref);
+        setTimeout(clearwhite, 500);
+      }
       break;
     case "Invert":
+    arSel=[];
       var x2=11-x;
       var y2=11-y;
       var ref=$(".lucasSquare[coor_x='" + x + "'][coor_y='" + y2 + "']");
@@ -828,34 +1205,85 @@ function playSeq(o) {
           s+=" " +ref.attr("seq2");
           break;    
       }
-      var ref=$(".lucasSquare[coor_x='" + x2 + "'][coor_y='" + y + "']");
-      addSVGClass(ref,"combined");
+       n3=ref.attr("n1");
+       n4=ref.attr("n2");
+       arSel.push(o);
+       arSel.push(ref);
+      var ref2=$(".lucasSquare[coor_x='" + x2 + "'][coor_y='" + y + "']");
+      addSVGClass(ref2,"combined");
       switch(texture) {
         case "1":
-          s+=" " + ref.attr("seq");
+          s+=" " + ref2.attr("seq");
           break;
         case "2":
-          s+=" " +ref.attr("seq2");
+          s+=" " +ref2.attr("seq2");
           break;    
       }
+      arSel.push(ref2);
+       n5=ref2.attr("n1");
+       n6=ref2.attr("n2");
 
       setTimeout(clearCombined, 500);
       seq=s;
+      if (seqMode=="S") {
+        console.log("(((((");
+        console.log(coors(o));
+        console.log(coors(sq1));
+
+        sq0=o;
+        // ?
+        if (sq1!="") {
+          lineTo(sq0,sq1);
+        }
+        
+        sq1=ref;
+        lineTo(sq0,sq1);
+        lineTo(sq1,ref2);
+        sq0=ref2;
+      } else {
+        lineTo(o,ref);
+        lineTo(ref,ref2);
+        lineTo(ref2,o);
+        setTimeout(clearwhite, 500);        
+      }
       break;
   }
 
+  arSeq.push(n2);
+  arSeq.push(n1);
+  if (n4!="") arSeq.push(n4);
+  if (n3!="") arSeq.push(n3);
+  if (n6!="") arSeq.push(n6);
+  if (n5!="") arSeq.push(n5);
 
-    console.log("play seq");
-    console.log(seq);
-    stopPlaying();
-    // var cr=$(this).closest(".cm_render");
-    // t=cr.find('.sequence');
-    // console.log(t);
-    // t.toggle();
-    // console.log(t.text().trim());
+  updateSeq();
 
-    //var seq="Bb5|0.0000 D6|0.0000 F6|0.0000";
-    restartSequence(seq);
+  console.log("play seq " , seqMode);
+  console.log(seq);
+
+  }
+
+
+  stopPlaying();
+  // var cr=$(this).closest(".cm_render");
+  // t=cr.find('.sequence');
+  // console.log(t);
+  // t.toggle();
+  // console.log(t.text().trim());
+
+  //var seq="Bb5|0.0000 D6|0.0000 F6|0.0000";
+  
+   if (groupSelected("Time","C")) {
+      // chord
+      console.log("chord!");
+      myseq=seq;
+    } else {
+      // sequence
+      console.log("sequence!");
+      myseq=seq2;
+      
+    }
+  restartSequence(myseq);
 
 }
 
@@ -890,3 +1318,8 @@ function goNextQuestion() {
 
 }
 
+Array.prototype.unique = function() {
+  return this.filter(function (value, index, self) { 
+    return self.indexOf(value) === index;
+  });
+}

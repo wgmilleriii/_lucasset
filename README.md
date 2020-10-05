@@ -22,5 +22,9 @@ http://chipmiller.me/git/_lucasset/
 
 
 
+TODO:
+  // lower left going right: C-C, C-G, C-D
+  // lower left going up.  : C-C, C-F, C-Bb
 
+// get samples from Lucas
 
