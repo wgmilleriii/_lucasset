@@ -296,8 +296,8 @@ function loadEm() {
 // below here: audio
         NProgress.start();
         // load samples / choose 4 random instruments from the list //
-        chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'contrabass', 'flute', 'french-horn', 'guitar-acoustic', 'guitar-electric','guitar-nylon', 'harmonium', 'harp', 'organ', 'saxophone', 'trombone', 'trumpet', 'tuba', 'violin', 'xylophone']
-        chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone'] 
+        // chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'contrabass', 'flute', 'french-horn', 'guitar-acoustic', 'guitar-electric','guitar-nylon', 'harmonium', 'harp', 'organ', 'saxophone', 'trombone', 'trumpet', 'tuba', 'violin', 'xylophone']
+        chooseFour = ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone', 'flute'] 
         // shuffle(chooseFour);
         // chooseFour = chooseFour.slice(0, 1);
 
@@ -305,9 +305,6 @@ function loadEm() {
             instruments: chooseFour,
             baseUrl: "/shared/engine4/tonejs-instruments/samples/"
         })
-
-
-
 
         
         // show keyboard on load //

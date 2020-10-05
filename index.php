@@ -86,6 +86,7 @@ body {
     <div class="menu">
       <div class="label">Instrument:</div>
       <div class="submenu selected" group="Ins" mode="0">Piano</div>
+      <div class="submenu" group="Ins" mode="6">Electric Guitar</div>
       <div class="submenu" group="Ins" mode="1">Electric Bass</div>
       <div class="submenu" group="Ins" mode="3">Cello</div>
       <div class="submenu" group="Ins" mode="4">Clarinet</div>
