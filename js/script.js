@@ -366,7 +366,7 @@ function loadEm() {
                   // console.log("Default to 500");
                   pause=0;
               } else {
-                  pause=300;
+                  pause=1000;
               }
 
             }
@@ -391,7 +391,7 @@ function loadEm() {
                     // console.log(n);
                     current.triggerRelease(notename);
                 
-                }, 600);
+                }, 1000);
             }
 
 
