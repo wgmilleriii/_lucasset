@@ -10,21 +10,17 @@ $r=rand(1,1000000);
 </head>
 
 <body>
+<div class="hero"></div>
   <div id="topofpage"></div>
 <div id="TopLoading"></div>
 
-<style type="text/css">
-body {
-  background-color: #ebd5b3;
-  font-family: 'Helvetica', 'Arial', sans-serif;
-}
-
-</style>
 
   
   <div id="list_section">
+    
+    <div id="headerTop">
     <h1 id="header">_lucasset</h1>
-
+  </div>
   <!-- see https://spin.atomicobject.com/2015/07/14/css-responsive-square/ -->
 
 
@@ -35,7 +31,7 @@ body {
 
       The _lucasset welcomes you.
 
-      Click here to continue.
+      Click to continue.
     </div>
 
     
@@ -55,15 +51,16 @@ body {
     <div id="tTexture"></div>
     <div id="tMode"></div>
 
+    <div class="sideMenu">
     <div class="menu">
-      <div class="label">Texture:</div>
+      <div class="label">Texture</div>
       <div class="submenu selected" group="B" mode="2">Two notes</div>
 
       <div class="submenu " group="B" mode="1">All the octaves</div>
     </div>
 
     <div class="menu">
-      <div class="label">Interaction:</div>
+      <div class="label">Interaction</div>
       <div class="submenu selected" group="A" mode="Explore">Explore (single)</div>
       <div class="submenu" group="A" mode="Combine">Combine (manual)</div>
       <div class="submenu" group="A" mode="Reflect">Reflect (auto)</div>
@@ -71,20 +68,22 @@ body {
 
     </div>
 
+    <div class="menu">
+      <div class="submenu2" group="Lock" mode="L">Lock</div>
+    </div>
+
+
     <div style="clear:both; margin-top:5px"></div>
     <div class="menu">
-      <div class="label">Time:</div>
+      <div class="label">Time</div>
       <div class="submenu selected" group="Time" mode="C">Chord</div>
       <div class="submenu" group="Time" mode="S">Sequence</div>
     </div>
 
-    <div class="menu">
-      <div class="submenu2" group="Lock" mode="L">Lock</div>
-    </div>
 <!-- ['piano', 'bass-electric', 'bassoon', 'cello', 'clarinet', 'xylophone']  -->
 
     <div class="menu">
-      <div class="label">Instrument:</div>
+      <div class="label">Instrument</div>
       <div class="submenu selected" group="Ins" mode="0">Piano</div>
       <div class="submenu" group="Ins" mode="6">Electric Guitar</div>
       <div class="submenu" group="Ins" mode="1">Electric Bass</div>
@@ -93,13 +92,20 @@ body {
       <div class="submenu" group="Ins" mode="5">Xylophone</div>
       <div class="submenu" group="Ins" mode="2">Bassoon</div>
 
+    </div>      
     </div>
+
         <div style="clear:both; margin-top:5px"></div>
 
 
     <svg id="svg1" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
       <defs id="sdefs"></defs>
-      <!--
+       <filter id="blurMe">
+         <feGaussianBlur stdDeviation="2"/>
+       </filter>
+  <filter id="grayscale">
+    <feColorMatrix type="saturate" values="0.30"/>
+  </filter>      <!--
       Example:
       <rect x="500" y="500" width="300" height="100" style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" />
       -->
@@ -112,7 +118,7 @@ body {
 
 
       <!-- this is a great idea ! -->
-      <circle cx="50%" cy="50%" r="400" fill="white"/>
+      <!-- <circle cx="50%" cy="50%" r="400" fill="white"/> -->
     </svg>
 
     </div>

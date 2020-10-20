@@ -1,14 +1,18 @@
 var arSeq=[];
 var svgNS;
 var svg;
-var svgHeight=500;
+var svgHeight=600;
 var defs=$("#sdefs");
 var arSel=[];
 var arSquares=[];
-
+var xs;
+var xs1;
+var xs2;
 $( document ).ready(function() {
     svgNS="http://www.w3.org/2000/svg";
     svg=document.getElementById("svg1");
+
+    $("#welcome").fadeIn();
 });
 
 function coorsa(ar) {
@@ -83,23 +87,23 @@ $(function() {
   // $i = integer
   for (var $i=1;$i<=12;$i++) {
       //   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-      var cir = document.createElementNS(svgNS, 'circle'); //Create a path in SVG's namespace
-      cir.setAttribute("class","lucasCircle"); 
+      // var cir = document.createElementNS(svgNS, 'circle'); //Create a path in SVG's namespace
+      // cir.setAttribute("class","lucasCircle"); 
 
       var $cx=$vb/4*3;
       var $cy=$vb/4*3;
 
       // the radius of the circle is a ratio to the viewBox
       var $radius=$vb-($i*60);
-      cir.setAttribute("x",$cx); 
-      cir.setAttribute("y",$cy); 
-      cir.setAttribute("r",$radius); 
-      svg.appendChild(cir);
+      // cir.setAttribute("x",$cx); 
+      // cir.setAttribute("y",$cy); 
+      // cir.setAttribute("r",$radius); 
+      // svg.appendChild(cir);
 
   }
 
   var $fifths_0=["C","G","D","A","E","B","F#","C#","G#","D#","A#","F"];
-  var $fifths_1=["C","F","Bb","Eb","Ab","Db","F#","B","E","A","D","G","C"];
+  // var $fifths_1=["C","F","Bb","Eb","Ab","Db","F#","B","E","A","D","G","C"];
 
 
   // optional : switch the order
@@ -116,13 +120,14 @@ $(function() {
   // 
 
   var $numNotes=12;
+  var $numNotesPlus=14;
 
   // width and height percent is 12 divisions
   var $wh=100/$numNotes;
 
   // square widths/heights
   var $padding=.5;
-  var $wid=Math.round($vb/($numNotes + $padding));
+  var $wid=Math.round($vb/($numNotesPlus + $padding));
 
   for (var $x=0;$x<$numNotes;$x++) {
     var $s="<div class='gridline'>";
@@ -195,8 +200,8 @@ $(function() {
 
       //var $seq=$fifths_
       // x and y points
-      var $px=($x/$numNotes) * $vb;
-      var $py=($y/$numNotes) * $vb;  
+      var $px=(($x+1)/$numNotesPlus) * $vb;
+      var $py=(($y+1)/$numNotesPlus) * $vb;  
       
 
       //$s2+=`<rect style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" x="` + $px + `" y="` + $py + `" width="` + $wid + `" height="` + $wid + `"/>`;
@@ -210,13 +215,9 @@ $(function() {
       // restartSequence(seq);
 
       // offset to accommodate font size
-      txt.setAttributeNS(null, 'x', $px + 10);
-      txt.setAttributeNS(null, 'y', $py + 40);
-      txt.setAttributeNS(null,'class','lucasSquareText');
-      txt.innerHTML = $val;
-      svg.appendChild(txt);
-
-
+      var g=document.createElementNS(svgNS, 'g'); 
+      g.setAttribute("coor_x",$coorX);
+      g.setAttribute("coor_y",$coorY);
 
       var sq = document.createElementNS(svgNS, 'rect'); //Create a path in SVG's namespace
       sq.setAttribute("class","lucasSquare " + $interval); 
@@ -232,9 +233,25 @@ $(function() {
       sq.setAttribute("seq2",$seq2);       
       sq.setAttribute("width",$wid); 
       sq.setAttribute("height",$wid);
+
+      txt.setAttributeNS(null, 'x', $px + 10);
+      txt.setAttributeNS(null, 'y', $py + 40);
+      txt.setAttributeNS(null,'class','lucasSquareText');
+      txt.innerHTML = $val;
+
+
+      g.appendChild(sq);
+
+      var t=$(txt).clone().appendTo(g);
+      t.attr('class','lucasSquareTextShadow');
+      t.attr( 'x', $px + 9);
+      t.attr( 'y', $py + 39);
+      g.appendChild(txt);
       
-      svg.appendChild(sq);
+      svg.appendChild(g);
       arSquares.push(sq);
+
+
 
       // create an HTML div
       $s+=`<div class="square ` + $interval + `">
@@ -252,8 +269,61 @@ $(function() {
     $grid.append($s);
 
     
+
   }
 
+var $m=((12)/$numNotesPlus) * $vb;
+
+ $("g[coor_x=0]").each(function(index) {
+      xs1=$(this);
+      console.log(xs1)
+      xs2=xs1.clone();
+      xs2.insertAfter(xs1);
+      xs2.attr("coor_x","-1");
+      xs2.attr("transform","translate(" + $m + ",0)");
+      xs2.attr("cloned","1");
+      xs2.attr("class","cloned");
+      
+ });
+ $("g[coor_y=0]").each(function(index) {
+      xs1=$(this);
+      console.log(xs1)
+      xs2=xs1.clone();
+      xs2.insertAfter(xs1);
+      xs2.attr("coor_y","-1");
+      xs2.attr("transform","translate(0," + $m + ")");
+      xs2.attr("cloned","1");
+      xs2.attr("class","cloned");
+      
+ });    
+$("g[coor_x=11]").each(function(index) {
+      xs1=$(this);
+      console.log(xs1)
+      xs2=xs1.clone();
+      xs2.insertAfter(xs1);
+      xs2.attr("coor_x","-1");
+      xs2.attr("transform","translate(-" + $m + ",0)");
+      xs2.attr("cloned","1");
+      xs2.attr("class","cloned");
+      
+ });
+ $("g[coor_y=11]").each(function(index) {
+      xs1=$(this);
+      console.log(xs1)
+      xs2=xs1.clone();
+      xs2.insertAfter(xs1);
+      xs2.attr("coor_y","-1");
+      xs2.attr("transform","translate(0,-" + $m + ")");
+      xs2.attr("cloned","1");
+      xs2.attr("class","cloned");
+ });    
+
+ $("g[cloned=1] text").each(function() { 
+  $(this)[0].setAttribute("filter","url(#blurMe)");
+});
+ $("g[cloned=1] rect").each(function() { 
+  $(this)[0].setAttribute("filter","url(#grayscale)");
+});
   setTexture("2");
   setMode("Explore");
 
@@ -681,7 +751,7 @@ function playGame(fi,mv,cv, reportAProblem) {
 function fadeErIn() {
     $("#app").fadeIn();
     $("#svg1").fadeIn();
-    $(".menu").css("display","inline-block");
+    $("body").css("background-image","none");
 }
 $(document).on('click', '#welcome', function () {
     loadEm();
@@ -894,10 +964,13 @@ function addSVGClass(o,cl1) {
       }
 
 }
+var tcc, tcdb;
 function moveCursor(x,y) {
   console.log(coorsa(arSel));
   var arSel2=[];
   var mode=getMode();
+  cleardarkblue();
+  clearCombined();
   for (var i=0;i<arSel.length;i++) {
     var o1=arSel[i];
     var x1=arSel[i].attr("coor_x")*1+x;
@@ -927,11 +1000,13 @@ function moveCursor(x,y) {
   if (mode=="Invert" && seqMode!="S") {
     lineTo(arSel2[i-1],arSel2[0],"darkblue");
   }
-setTimeout(cleardarkblue, 500);
+  clearTimeout(tcc);
+  clearTimeout(tcdb);
+  tcdb=setTimeout(cleardarkblue, 500);
   console.log("Next");
   console.log(coorsa(arSel2));
   playSeq2(arSel2);
-  setTimeout(clearCombined, 500);
+  tcc=setTimeout(clearCombined, 500);
   
   arSel=arSel2;
 

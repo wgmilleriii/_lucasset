@@ -1,16 +1,55 @@
 * {
   font-family: Helvetica
 }
+body {
+  background-color: #F1F1D4;
+  font-family: 'Helvetica', 'Arial', sans-serif;
+  margin:0px;
+  
+}
+
+.hero {
+    position: absolute; 
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  z-index:-99;      
+}
+
+.hero::before {    
+      content: "";
+  z-index:-99;      
+      background-image: url("../bg.jpg");
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.5;
+}
+
 #canvas { width:90%; text-align: center;  margin:0px auto;}
 #list_section {
   text-align: center;
 }
 
-h1 {
-  color: white;
-  margin: 25px; 
+#headerTop {
+  
+  width:100%;
   text-align: right;
-  border-bottom:1px solid white;
+  display:block;
+  height:100px;
+}
+h1 {
+  color: rgba(10,10,10,.5);
+  text-align: right;
+  border-bottom:1px solid rgba(10,10,10,.3);
+  position:absolute;
+  right:10px;
+  width:80%;
 }
 
 ul {
@@ -108,20 +147,26 @@ input[type='submit'] {
   stroke-width: 1px;
   stroke-opacity: .8;
   fill: grey;
-  fill-opacity: .5;
+  fill-opacity: .7;
 }
 
 .lucasSquareText { 
-  font: italic 20px serif; 
+  font:  20px serif; 
   fill:black; fill-opacity:.8;
+  font-weight: bold;
+}
+.lucasSquareTextShadow { 
+  font:  20px serif; 
+  fill:white; fill-opacity:.8;
+  font-weight: bold;
 }
 .P5 { fill:red; stroke:red; }
-.UN { fill:lightblue; stroke:lightblue; }
-.M2 { fill:#CC5500; stroke:#CC5500;}
-.n3 { fill:darkgreen; stroke:darkgreen; }
-.M3 { fill:orange; stroke:orange; }
-.n2 { fill:darkgrey; stroke:darkgrey; }
-.TT { fill:pink; stroke:pink;}
+.UN { fill:lightblue; stroke:lightblue;  }
+.M2 { fill:#CC5500; stroke:#CC5500; }
+.n3 { fill:darkgreen; stroke:darkgreen;  }
+.M3 { fill:orange; stroke:orange;  }
+.n2 { fill:darkgrey; stroke:darkgrey;  }
+.TT { fill:pink; stroke:pink;  }
 
 
 .lucasSquare:hover { 
@@ -130,39 +175,50 @@ input[type='submit'] {
   stroke-width: 3px;
  }
 
-.lucasSquare { 
-  fill-opacity:.5;
- }
 .lucasSquare.combined { 
   stroke:white;
   stroke-width:6px;
  }
- 
+ g.cloned .lucasSquare.combined { 
+  stroke-opacity:.4;
+ }
+
  .lucasCircle { 
   fill:#338;
   fill-opacity:.2;
   }
 
 #welcome { 
-  font-size:8px;
+  font-size:18px;
   white-space: pre;
   background:rgba(255,255,255,.8);
+  cursor: pointer;
+  height:50%;
+  vertical-align: middle;
+  padding-top:20%;
+  display:none;
+  color:rgba(20,20,20,.8);
+  border:2px solid black;
+  border-color:rgba(30,30,30,.6);
   cursor: pointer;
 }
 #app { 
 display:none; 
+margin:10px;
  }
 #svg1 { 
 display:none; 
 width:70vh;
 height:70vh;
+
 }
 #divSeq {
   visibility:hidden;
 }
 
 .submenu.selected, .submenu2.selected { 
-  background-color:rgba(255,255,255,1);
+  background-color:rgba(30,30,30,.5);
+  color:white;
 }
 .submenu, .submenu2 { 
   background-color:rgba(255,255,255,.2);
@@ -170,23 +226,47 @@ height:70vh;
   border-radius:3px;
   padding:2px;
   margin:2px;
-  width:20%;
+  ;
   font-size:11px;
   display:inline;
 }
+.sideMenu {
+  position:absolute;
+  top:10px;
+  left:20px;
+  border:1px solid #CCC;
+  width:120px;
+  text-align: left;
+  background-color:rgba(255,255,255,.8);
+}
+.sideMenu .submenu, 
+.sideMenu .submenu2  {
+  min-width:90px;
+  max-width:90px;
+  display:block;
+  cursor:pointer;
+}
+
 .menu { 
-display:none; margin-right:20px ; text-align: left;
+ margin-right:5px ; text-align: left;
+  margin-top:20px;
+  text-align: center;
+  padding:4px 6px;
  }
  .label { 
-clear:both; font-size:11px; 
+  clear:both; font-size:11px; 
+  text-align: left;
+  width:100%;
+  opacity: .6;
+  
   }
 .white { 
-  stroke:white;
+  stroke:#333;
   stroke-width:2;
-  stroke-opacity:1;
+  stroke-opacity:.8;
 }
 .whiteshadow { 
-  stroke:black;
+  stroke:white;
   stroke-width:2;
   stroke-opacity:.5;
 }
@@ -200,10 +280,10 @@ clear:both; font-size:11px;
 
 
 .whiteCircle { 
-  stroke:white;
+  stroke:#333;
   stroke-width:2;
-  stroke-opacity:1;
-  fill:white;
+  stroke-opacity:.8;
+  fill:#333;
   fill-opacity:.2;
 }
 
@@ -232,3 +312,7 @@ clear:both; font-size:11px;
 }
 #seqCheck { zoom:.7; }
 #dSeq { zoom:.8; min-height:20px; }
+
+g
+ text { pointer-events: none }
+ rect { cursor: pointer; }
