@@ -8,6 +8,7 @@ var arSquares=[];
 var xs;
 var xs1;
 var xs2;
+
 $( document ).ready(function() {
     svgNS="http://www.w3.org/2000/svg";
     svg=document.getElementById("svg1");
@@ -274,17 +275,17 @@ $(function() {
 
 var $m=((12)/$numNotesPlus) * $vb;
 
- $("g[coor_x=0]").each(function(index) {
-      xs1=$(this);
-      console.log(xs1)
-      xs2=xs1.clone();
-      xs2.insertAfter(xs1);
-      xs2.attr("coor_x","-1");
-      xs2.attr("transform","translate(" + $m + ",0)");
-      xs2.attr("cloned","1");
-      xs2.attr("class","cloned");
+ // $("g[coor_x=0]").each(function(index) {
+ //      xs1=$(this);
+ //      console.log(xs1)
+ //      xs2=xs1.clone();
+ //      xs2.insertAfter(xs1);
+ //      xs2.attr("coor_x","-1");
+ //      xs2.attr("transform","translate(" + $m + ",0)");
+ //      xs2.attr("cloned","1");
+ //      xs2.attr("class","cloned");
       
- });
+ // });
  $("g[coor_y=0]").each(function(index) {
       xs1=$(this);
       console.log(xs1)
@@ -296,27 +297,27 @@ var $m=((12)/$numNotesPlus) * $vb;
       xs2.attr("class","cloned");
       
  });    
-$("g[coor_x=11]").each(function(index) {
-      xs1=$(this);
-      console.log(xs1)
-      xs2=xs1.clone();
-      xs2.insertAfter(xs1);
-      xs2.attr("coor_x","-1");
-      xs2.attr("transform","translate(-" + $m + ",0)");
-      xs2.attr("cloned","1");
-      xs2.attr("class","cloned");
+// $("g[coor_x=11]").each(function(index) {
+//       xs1=$(this);
+//       console.log(xs1)
+//       xs2=xs1.clone();
+//       xs2.insertAfter(xs1);
+//       xs2.attr("coor_x","-1");
+//       xs2.attr("transform","translate(-" + $m + ",0)");
+//       xs2.attr("cloned","1");
+//       xs2.attr("class","cloned");
       
- });
- $("g[coor_y=11]").each(function(index) {
-      xs1=$(this);
-      console.log(xs1)
-      xs2=xs1.clone();
-      xs2.insertAfter(xs1);
-      xs2.attr("coor_y","-1");
-      xs2.attr("transform","translate(0,-" + $m + ")");
-      xs2.attr("cloned","1");
-      xs2.attr("class","cloned");
- });    
+//  });
+//  $("g[coor_y=11]").each(function(index) {
+//       xs1=$(this);
+//       console.log(xs1)
+//       xs2=xs1.clone();
+//       xs2.insertAfter(xs1);
+//       xs2.attr("coor_y","-1");
+//       xs2.attr("transform","translate(0,-" + $m + ")");
+//       xs2.attr("cloned","1");
+//       xs2.attr("class","cloned");
+//  });    
 
  $("g[cloned=1] text").each(function() { 
   $(this)[0].setAttribute("filter","url(#blurMe)");
@@ -358,6 +359,8 @@ $("g[coor_x=11]").each(function(index) {
     var $this = $(this);
     $this.remove();
   });
+
+
 
 });
 var samples;
