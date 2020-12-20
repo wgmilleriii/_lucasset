@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-The Lucasset is the Lucas Set.
+The Lucasset is the Lucas Set. It is grand.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -22,5 +22,9 @@ http://chipmiller.me/git/_lucasset/
 
 
 
+TODO:
+  // lower left going right: C-C, C-G, C-D
+  // lower left going up.  : C-C, C-F, C-Bb
 
+// get samples from Lucas
 
