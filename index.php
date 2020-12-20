@@ -7,6 +7,11 @@ $r=rand(1,1000000);
 <head>
   <title>_lucasset</title>
   <link rel="stylesheet" href="css/styles.css?r=<? echo $r ?>" />
+<? if (isset($_GET["light"])) { ?>
+  <link rel="stylesheet" href="css/styles.css?r=<? echo $r ?>" />
+<? } else { ?>
+  <link rel="stylesheet" href="css/styles_dark.css?r=<? echo $r ?>" />
+<? } ?>
 </head>
 
 <body>

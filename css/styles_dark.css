@@ -21,14 +21,14 @@ body {
 .hero::before {    
       content: "";
   z-index:-99;      
-      background-image: url("../bg.jpg");
+      background-image: url("../cube3.jpg");
       background-size: cover;
       position: absolute;
       top: 0px;
       right: 0px;
       bottom: 0px;
       left: 0px;
-      opacity: 0.5;
+      opacity: 1;
 }
 
 #canvas { width:90%; text-align: center;  margin:0px auto;}
@@ -44,12 +44,18 @@ body {
   height:100px;
 }
 h1 {
-  color: rgba(10,10,10,.5);
+  color: rgba(255,255,255,.8);
   text-align: right;
   border-bottom:1px solid rgba(10,10,10,.3);
   position:absolute;
   right:10px;
   width:80%;
+        background-image: url("../cube3.jpg");
+      background-size:contain;
+      background-repeat: no-repeat;
+      background-position: right;
+      padding-right:60px;
+
 }
 
 ul {
@@ -160,6 +166,7 @@ input[type='submit'] {
   fill:white; fill-opacity:.8;
   font-weight: bold;
 }
+
 .P5 { fill:red; stroke:red; }
 .UN { fill:lightblue; stroke:lightblue;  }
 .M2 { fill:#CC5500; stroke:#CC5500; }
