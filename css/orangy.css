@@ -1,37 +1,30 @@
 * {
   font-family: Helvetica
 }
+
+@keyframes animatedBackground {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 100% 0;
+  }
+}
+
 body {
-  background-color: #F1F1D4;
+    animation: animatedBackground 90s linear infinite alternate;
   font-family: 'Helvetica', 'Arial', sans-serif;
   margin:0px;
-  
+  background-image: url("../imgg/cube_paper_orange.jpg");
+  background-size: cover;
+  background-repeat:repeat;
+  background-position:300%;
+  background-color: #F1F1D4;
+
 }
 
-.hero {
-    position: absolute; 
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  z-index:-99;      
-}
 
-.hero::before {    
-      content: "";
-  z-index:-99;      
-      background-image: url("../bg.jpg");
-      background-size: cover;
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      left: 0px;
-      opacity: 0.5;
-}
-
-#canvas { width:90%; text-align: center;  margin:0px auto;}
+#canvas { width:100%; margin:0px auto; height:100vh;}
 #list_section {
   text-align: center;
 }
@@ -44,12 +37,18 @@ body {
   height:100px;
 }
 h1 {
-  color: rgba(10,10,10,.5);
+  color: rgba(255,255,255,.8);
   text-align: right;
   border-bottom:1px solid rgba(10,10,10,.3);
   position:absolute;
   right:10px;
   width:80%;
+        background-image: url("../imgg/cube_paper_orange.jpg");
+      background-size:contain;
+      background-repeat: no-repeat;
+      background-position: right;
+      padding-right:60px;
+
 }
 
 ul {
@@ -150,6 +149,7 @@ input[type='submit'] {
   fill-opacity: .7;
 }
 
+
 .P5 { fill:red; stroke:red; }
 .UN { fill:lightblue; stroke:lightblue;  }
 .M2 { fill:#CC5500; stroke:#CC5500; }
@@ -178,25 +178,11 @@ input[type='submit'] {
   fill-opacity:.2;
   }
 
-#welcome { 
-  font-size:18px;
-  white-space: pre;
-  background:rgba(255,255,255,.8);
-  cursor: pointer;
-  height:50%;
-  vertical-align: middle;
-  padding-top:20%;
-  display:none;
-  color:rgba(20,20,20,.8);
-  border:2px solid black;
-  border-color:rgba(30,30,30,.6);
-  cursor: pointer;
-}
+
 #app { 
 display:none; 
 margin:10px;
  }
-
 
 .submenu.selected, .submenu2.selected { 
   background-color:rgba(30,30,30,.5);
@@ -216,10 +202,13 @@ margin:10px;
   position:absolute;
   top:10px;
   left:20px;
+  border-radius: 10px;
   border:1px solid #CCC;
   width:120px;
+  height:90vh;
   text-align: left;
-  background-color:rgba(255,255,255,.8);
+  background-color:rgba(255,255,255,.4);
+  overflow:scroll;
 }
 .sideMenu .submenu, 
 .sideMenu .submenu2  {
@@ -298,3 +287,6 @@ margin:10px;
 g
  text { pointer-events: none }
  rect { cursor: pointer; }
+
+
+      

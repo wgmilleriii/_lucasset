@@ -1,0 +1,181 @@
+
+body::after{
+   position:absolute; width:0; height:0; overflow:hidden; z-index:-1; // hide images
+   content:url(2dark.jpg) url(cube_paper_orange.jpg)
+    url(lucas_cube_blue.jpg) url(lucas_cube_multicolor_vintage.jpg)
+    url(lucas_cube_plain_pink_dark.jpg) url(lucas_cube_plain_purple_dark.jpg)
+    ;   // load images
+}
+
+#skin {
+
+ border-radius:36px;
+  display:inline-block;
+  overflow:hidden;
+  background-color:rgba(200,200,200,.4);
+  border:1px solid #cccccc;
+  position:fixed;
+  bottom:10px;
+  right:10px;
+  border-radius:14px;
+ }
+
+ 
+#selSkin{
+  background-color:rgba(200,200,200,.4);
+  padding:0px 2px 0px 2px;
+  font-size:9px;
+  width:140px;
+  height:20px;
+  border:0px;
+  outline:none;
+}
+
+#svg1 { 
+  display:none; 
+  width:
+  calc(100vw-200px);
+  height:90vh;
+
+}
+
+svg text { text-rendering:optimizeLegibility;
+font-family: Amiri !important ;
+font-weight:400;}
+
+.lucasSquareTextSmaller { 
+  font-size:  22px ; 
+  fill:black; fill-opacity:.8;
+  
+}
+.lucasSquareTextSmallerShadow { 
+  font-size:  22px ; 
+  fill:white; fill-opacity:.8;
+  
+}
+
+.lucasSquareTextBigger { 
+  font-size:  39px ; 
+  fill:black; fill-opacity:.8;
+  
+}
+.lucasSquareTextBiggerShadow { 
+  font-size:  39px ; 
+  fill:white; fill-opacity:.8;
+  
+}
+@font-face {
+    font-family: GraublauWeb;
+    src: url("../fonts/212Keyboard-lmRZ.otf") format("opentype");
+}
+
+span.helper {
+    font-family:GraublauWeb;
+    font-size:30px;
+}
+
+#welcome span {
+ display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+  cursor: pointer;
+  }
+
+
+
+  #welcome { 
+
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 20px);
+  border-radius: 10px;
+  
+
+  font-size:18px;
+  
+  background:rgba(255,255,255,.8);
+  cursor: pointer;
+  
+  width:80vw;
+  margin:0px auto;
+  vertical-align: middle;
+  
+  text-align: center;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+
+  display:none;
+  color:rgba(20,20,20,.8);
+  border:2px solid black;
+  border-color:rgba(30,30,30,.1);
+  cursor: pointer;
+ box-shadow:
+   0 0 60px 30px #fff,
+    0 0 100px 60px #f0f,
+    0 0 140px 90px #0ff,
+      inset 0 0 12px 0 rgba(255,255,255,.4),
+        inset 0 0 13px 0 rgba(0,0,0,.4),
+        inset 0 0 13px 5px rgba(0,0,0,.05),
+        12px 12px 14px 0 rgba(0,0,0,.25);
+
+}
+
+
+#welcome:before, #welcome:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    height: 13px;
+}
+#welcome:before {
+    top: 0;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: rgba(255,255,255,.6);
+    box-shadow: 0 11px 12px 0 rgba(255,255,255,.6);
+}
+#welcome:after {
+    bottom: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    background: rgba(0,0,0,.15);
+    box-shadow: 0 -11px 12px 0 rgba(0,0,0,.15);
+}
+
+
+#divSeq { 
+  visibility:hidden;
+position:absolute; 
+top:10px;
+left:200px;
+  mix-blend-mode: difference;
+  color: white;
+  mix-blend-mode: difference;
+  }
+
+
+.locky { 
+font-family: Helvetica;
+  background-color:rgba(30,30,30,.5);
+  color:white;
+
+  border:1px solid black;
+  border-radius:3px;
+  padding:2px 5px;
+  margin:2px;
+  ;
+  font-size:14px;
+  display:inline;
+}
+
+
+td { font-size:70%; }
+
+svg {
+  transition: 1s filter linear;
+  filter: hue-rotate(360deg);
+}

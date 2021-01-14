@@ -156,16 +156,6 @@ input[type='submit'] {
   fill-opacity: .7;
 }
 
-.lucasSquareText { 
-  font:  22px serif; 
-  fill:black; fill-opacity:.8;
-  font-weight: bold;
-}
-.lucasSquareTextShadow { 
-  font:  22px serif; 
-  fill:white; fill-opacity:.8;
-  font-weight: bold;
-}
 
 .P5 { fill:red; stroke:red; }
 .UN { fill:lightblue; stroke:lightblue;  }
@@ -213,15 +203,7 @@ input[type='submit'] {
 display:none; 
 margin:10px;
  }
-#svg1 { 
-display:none; 
-width:70vh;
-height:70vh;
 
-}
-#divSeq {
-  visibility:hidden;
-}
 
 .submenu.selected, .submenu2.selected { 
   background-color:rgba(30,30,30,.5);

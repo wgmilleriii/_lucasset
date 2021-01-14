@@ -9,11 +9,32 @@ var xs;
 var xs1;
 var xs2;
 
+
+
 $( document ).ready(function() {
     svgNS="http://www.w3.org/2000/svg";
     svg=document.getElementById("svg1");
 
-    $("#welcome").fadeIn();
+
+document.fonts.ready.then(function () {
+  
+$("#welcome").fadeIn();
+});
+
+ 
+
+    
+
+  $('#selSkin').on('change', function() {
+    
+
+    $("#l1").attr("href","css/" + this.value + "?r=" + Math.random());
+    return false;
+
+  });
+
+
+loadEm();
 });
 
 function coorsa(ar) {
@@ -81,27 +102,28 @@ $(function() {
   svg=document.getElementById("svg1");
 
   // viewBox width and height
-  var $vb=1000; 
+  var $vbw=1500; 
+  var $vbh=1000; 
 
   // let's add some circles 
 
   // $i = integer
-  for (var $i=1;$i<=12;$i++) {
-      //   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
-      // var cir = document.createElementNS(svgNS, 'circle'); //Create a path in SVG's namespace
-      // cir.setAttribute("class","lucasCircle"); 
+  // for (var $i=1;$i<=12;$i++) {
+  //     //   <circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" />
+  //     // var cir = document.createElementNS(svgNS, 'circle'); //Create a path in SVG's namespace
+  //     // cir.setAttribute("class","lucasCircle"); 
 
-      var $cx=$vb/4*3;
-      var $cy=$vb/4*3;
+  //     var $cx=$vb/4*3;
+  //     var $cy=$vb/4*3;
 
-      // the radius of the circle is a ratio to the viewBox
-      var $radius=$vb-($i*60);
-      // cir.setAttribute("x",$cx); 
-      // cir.setAttribute("y",$cy); 
-      // cir.setAttribute("r",$radius); 
-      // svg.appendChild(cir);
+  //     // the radius of the circle is a ratio to the viewBox
+  //     var $radius=$vb-($i*60);
+  //     // cir.setAttribute("x",$cx); 
+  //     // cir.setAttribute("y",$cy); 
+  //     // cir.setAttribute("r",$radius); 
+  //     // svg.appendChild(cir);
 
-  }
+  // }
 
   var $fifths_0=["C","G","D","A","E","B","F#","C#","G#","D#","A#","F"];
   // var $fifths_1=["C","F","Bb","Eb","Ab","Db","F#","B","E","A","D","G","C"];
@@ -128,7 +150,8 @@ $(function() {
 
   // square widths/heights
   var $padding=.5;
-  var $wid=Math.round($vb/($numNotesPlus + $padding));
+  var $wid=Math.round($vbw/($numNotesPlus + $padding));
+  var $hei=Math.round($vbh/($numNotesPlus + $padding));  
 
   for (var $x=0;$x<$numNotes;$x++) {
     var $s="<div class='gridline'>";
@@ -186,7 +209,10 @@ $(function() {
       var n1=$fifths_0[$x];
       var n2=$fifths_0[$y];
 
-      var $val=n2 + "-" + n1;
+      var $val1=n2;
+      var $val2=n1;
+
+      console.log($val1, $val2);
       var $seq= n2 + "2|0.0000 " + 
       n2 + "3|0.0000 " + 
       n2 + "4|0.0000 " + 
@@ -201,15 +227,9 @@ $(function() {
 
       //var $seq=$fifths_
       // x and y points
-      var $px=(($x+1)/$numNotesPlus) * $vb;
-      var $py=(($y+1)/$numNotesPlus) * $vb;  
+      var $px=(($x+1)/$numNotesPlus) * $vbw;
+      var $py=(($y+1)/$numNotesPlus) * $vbh;  
       
-
-      //$s2+=`<rect style="fill:rgb(0,0,255);stroke-width:3;stroke:rgb(0,0,0)" x="` + $px + `" y="` + $py + `" width="` + $wid + `" height="` + $wid + `"/>`;
-
-
-
-      var txt = document.createElementNS(svgNS, 'text');
 
       // sample
       // var seq="Bb5|0.0000 D6|0.0000 F6|0.0000";
@@ -227,27 +247,40 @@ $(function() {
       sq.setAttribute("n1",n1);
       sq.setAttribute("n2",n2);
 
-
       sq.setAttribute("x",$px); 
       sq.setAttribute("y",$py); 
       sq.setAttribute("seq",$seq); 
       sq.setAttribute("seq2",$seq2);       
       sq.setAttribute("width",$wid); 
-      sq.setAttribute("height",$wid);
-
-      txt.setAttributeNS(null, 'x', $px + 10);
-      txt.setAttributeNS(null, 'y', $py + 40);
-      txt.setAttributeNS(null,'class','lucasSquareText');
-      txt.innerHTML = $val;
-
+      sq.setAttribute("height",$hei);
 
       g.appendChild(sq);
 
-      var t=$(txt).clone().appendTo(g);
-      t.attr('class','lucasSquareTextShadow');
-      t.attr( 'x', $px + 9);
-      t.attr( 'y', $py + 39);
+      var txt = document.createElementNS(svgNS, 'text');
+      txt.setAttributeNS(null, 'x', $px + 5);
+      txt.setAttributeNS(null, 'y', $py + 26);
+      txt.setAttributeNS(null,'class','lucasSquareTextSmaller');
+      txt.innerHTML = $val1;
       g.appendChild(txt);
+      
+      var t=$(txt).clone().appendTo(g);
+      t.attr('class','lucasSquareTextSmallerShadow');
+      t.attr( 'x', $px + 6);
+      t.attr( 'y', $py + 27);
+      
+
+      var txt = document.createElementNS(svgNS, 'text');
+      txt.setAttributeNS(null, 'x', $px + 37);
+      txt.setAttributeNS(null, 'y', $py + 47);
+      txt.setAttributeNS(null,'class','lucasSquareTextBigger');
+      txt.innerHTML = $val2;
+      g.appendChild(txt);
+
+      var t=$(txt).clone().appendTo(g);
+      t.attr('class','lucasSquareTextBiggerShadow');
+      t.attr( 'x', $px + 38);
+      t.attr( 'y', $py + 48);
+      
       
       svg.appendChild(g);
       arSquares.push(sq);
@@ -257,7 +290,7 @@ $(function() {
       // create an HTML div
       $s+=`<div class="square ` + $interval + `">
       <div class="content">
-        ` + $val + `
+        ` + $val1 + `
       </div>
     </div>` ;
 
@@ -273,7 +306,7 @@ $(function() {
 
   }
 
-var $m=((12)/$numNotesPlus) * $vb;
+var $m=((12)/$numNotesPlus) * $vbh;
 
  // $("g[coor_x=0]").each(function(index) {
  //      xs1=$(this);
@@ -388,6 +421,7 @@ function loadEm() {
         })
 
 
+
         Tone.Buffer.on('load', function() {
             NProgress.done();
 
@@ -439,7 +473,7 @@ function loadEm() {
                   // console.log("Default to 500");
                   pause=0;
               } else {
-                  pause=1000;
+                  pause=200;
               }
 
             }
@@ -448,7 +482,7 @@ function loadEm() {
 
             // console.log(pause);
             if (playingIndex>length) {
-                pause=2500;
+                pause=300;
                 playingIndex=0;
                 stopPlaying() ;
             } else {
@@ -754,7 +788,7 @@ function playGame(fi,mv,cv, reportAProblem) {
 function fadeErIn() {
     $("#app").fadeIn();
     $("#svg1").fadeIn();
-    $("body").css("background-image","none");
+    // $("body").css("background-image","none");
 }
 $(document).on('click', '#welcome', function () {
     loadEm();
@@ -853,6 +887,7 @@ $(document).on('click', '.submenu.selected', function () {
 
 function allOctaves() {
   setTexture("1");
+
 }
 
 function twoNotes() {
@@ -910,35 +945,50 @@ function invert() {
   setMode("Invert");
   clearCombined();
 }
+function showhelp() {
+  $("#welcome").fadeIn();
+}
 $(document).on('keypress', '', function (event) {
   console.log(event.keyCode);
   
+
 //  var t =
   switch (event.keyCode) {
+    case 63:
+      showhelp();
+      break;
     case 49: //1
+    $("#alltheo").click();
+    allOctaves();
       // all the octaves
       break;
     case 50: //2
+    $("#twonotes").click();
+    twoNotes();
       // all the octaves
       break;
     case 113: //q
       // Single
-      _all();
+      $("#ex1").click();
+      explore();
       break;
     case 119: //w
       // Combine
-      _combine();
+      $("#exm").click();
+      combine();
       break;
     case 101: //e
       // Reflect
-      _reflect();
+      $("#exa").click();
+      reflect();
       break;
     case 114: //r
       // Invert
-      _invert();
+      $("#exi").click();
+      invert();
       break;
 
-    case 32:
+    case 32: // space
       moveCursor(0,0);
       break;
 
@@ -956,6 +1006,7 @@ $(document).on('keypress', '', function (event) {
       break;
 
   }
+   event.preventDefault();
   
 });
 function addSVGClass(o,cl1) {
